@@ -5,8 +5,17 @@ import openpyxl
 from openpyxl import Workbook
 import subprocess
 
-# Specify the batch file path instead of the Tesseract executable path
-pytesseract.pytesseract.tesseract_cmd = r"C:\Users\Athar\AppData\Local\Programs\Tesseract-OCR\tesseract.exe"
+pytesseract.pytesseract.tesseract_cmd = None
+
+# search for tesseract binary in path
+@st.cache_resource
+def find_tesseract_binary() -> str:
+    return shutil.which("tesseract")
+
+# set tesseract binary path
+pytesseract.pytesseract.tesseract_cmd = find_tesseract_binary()
+if not pytesseract.pytesseract.tesseract_cmd:
+    st.error("Tesseract binary not found in PATH. Please install Tesseract.")
 
 # Set up the Streamlit interfacest
 st.set_page_config(layout='wide')
