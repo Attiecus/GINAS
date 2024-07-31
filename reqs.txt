@@ -1,3 +1,4 @@
 streamlit --1.35.0
 pytesseract --0.3.10
 openpyxl -- 3.1.2
+tesseract v5.4.0.20240606
